@@ -25,7 +25,10 @@ class AutoRun:
         self.boy = boy
 
     def enter(self, e):
-        pass
+        if self.boy.face_dir == 1:
+            self.boy.dir = 1
+        else:
+            self.boy.dir = -1
 
     def exit(self, e):
         pass
@@ -124,8 +127,9 @@ class Boy:
         self.AUTORUN = AutoRun(self)
         self.state_machine = StateMachine(self.IDLE,
                                     {self.SLEEP : {space_down: self.IDLE},
-                                           self.IDLE: {right_up: self.RUN, left_up: self.RUN, right_down: self.RUN, left_down: self.RUN, time_out: self.SLEEP},
-                                           self.RUN: {right_down: self.IDLE, left_down: self.IDLE, right_up: self.IDLE, left_up: self.IDLE}
+                                           self.IDLE: {a_down: self.AUTORUN, right_up: self.RUN, left_up: self.RUN, right_down: self.RUN, left_down: self.RUN, time_out: self.SLEEP},
+                                           self.RUN: {right_down: self.IDLE, left_down: self.IDLE, right_up: self.IDLE, left_up: self.IDLE},
+                                           self.AUTORUN: {}
                                           }
                                           )
 
