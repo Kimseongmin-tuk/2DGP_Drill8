@@ -36,6 +36,12 @@ class AutoRun:
     def do(self):
         self.boy.frame = (self.boy.frame + 1) % 8
         self.boy.x += self.boy.dir * 5
+        if self.boy.x < self.boy.width / 2:
+            self.boy.dir = -self.boy.dir
+            self.boy.face_dir = 1
+        elif self.boy.x > 800 - self.boy.width / 2:
+            self.boy.dir = -self.boy.dir
+            self.boy.face_dir = -1
 
     def draw(self):
         if self.boy.face_dir == 1: # right
@@ -64,9 +70,9 @@ class Run:
 
     def draw(self):
         if self.boy.face_dir == 1: # right
-            self.boy.image.clip_draw(self.boy.frame * 100, 100, 100, 100, self.boy.x, self.boy.y)
+            self.boy.image.clip_draw(self.boy.frame * 100, 100, self.boy.width, self.boy.height, self.boy.x, self.boy.y)
         else: # face_dir == -1: # left
-            self.boy.image.clip_draw(self.boy.frame * 100, 0, 100, 100, self.boy.x, self.boy.y)
+            self.boy.image.clip_draw(self.boy.frame * 100, 0, self.boy.width, self.boy.height, self.boy.x, self.boy.y)
 
 
 class Sleep:
@@ -84,9 +90,9 @@ class Sleep:
 
     def draw(self):
         if self.boy.face_dir == 1: # right
-            self.boy.image.clip_composite_draw(self.boy.frame * 100, 300, 100, 100, 3.141592/2, '', self.boy.x - 25, self.boy.y - 25, 100, 100)
+            self.boy.image.clip_composite_draw(self.boy.frame * 100, 300, self.boy.width, self.boy.height, 3.141592/2, '', self.boy.x - 25, self.boy.y - 25, 100, 100)
         else: # face_dir == -1: # left
-            self.boy.image.clip_composite_draw(self.boy.frame * 100, 200, 100, 100, -3.141592/2, '',  self.boy.x - 25, self.boy.y - 25, 100, 100)
+            self.boy.image.clip_composite_draw(self.boy.frame * 100, 200, self.boy.width, self.boy.height, -3.141592/2, '',  self.boy.x - 25, self.boy.y - 25, 100, 100)
 
 
 class Idle:
@@ -108,15 +114,17 @@ class Idle:
 
     def draw(self):
         if self.boy.face_dir == 1: # right
-            self.boy.image.clip_draw(self.boy.frame * 100, 300, 100, 100, self.boy.x, self.boy.y)
+            self.boy.image.clip_draw(self.boy.frame * 100, 300, self.boy.width, self.boy.height, self.boy.x, self.boy.y)
         else: # face_dir == -1: # left
-            self.boy.image.clip_draw(self.boy.frame * 100, 200, 100, 100, self.boy.x, self.boy.y)
+            self.boy.image.clip_draw(self.boy.frame * 100, 200, self.boy.width, self.boy.height, self.boy.x, self.boy.y)
 
 
 class Boy:
     def __init__(self):
         self.x, self.y = 400, 90
         self.frame = 0
+        self.width = 100
+        self.height = 100
         self.face_dir = 1
         self.dir = 0
         self.image = load_image('animation_sheet.png')
