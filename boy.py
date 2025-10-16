@@ -1,6 +1,9 @@
 from pico2d import load_image, get_time
-from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT
+from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDLK_a
 from state_machine import StateMachine
+
+def a_down(e):
+    return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_a
 
 def right_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_RIGHT
@@ -22,12 +25,7 @@ class AutoRun:
         self.boy = boy
 
     def enter(self, e):
-        if right_down(e) or left_up(e):
-            self.boy.dir = 1
-            self.boy.face_dir = 1
-        elif left_down(e) or right_up(e):
-            self.boy.dir = -1
-            self.boy.face_dir = -1
+        pass
 
     def exit(self, e):
         pass
