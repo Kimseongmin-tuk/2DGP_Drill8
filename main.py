@@ -1,3 +1,5 @@
+# Drill #8 제출 - 2022184007 김성민
+
 from pico2d import *
 from boy import Boy
 from grass import Grass
